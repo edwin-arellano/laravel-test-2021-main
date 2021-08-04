@@ -11,23 +11,24 @@ class ProductController extends Controller
 {
     /**
      * Index of products
-     * 
+     *
      * Return list of products in stock
-     * 
+     *
      */
 
     public function index(Request $request)
     {
-        return $this->showOne(
+        return $this->showAll(
             Product::inStock()
-            ->name($request->name)
-            ->get()
+                ->name($request->name)
+                ->get()
+                ->toArray()
         );
     }
 
     /**
      * Store products
-     * 
+     *
      * Store a single product
      */
     public function store(ProductRequest $request)
@@ -39,7 +40,7 @@ class ProductController extends Controller
             return $this->showOne([
                 'message' => 'Registro del producto exitoso'
             ]);
-        } 
+        }
         return $this->showError('Error al guardar el producto', [], 400);
     }
 }
