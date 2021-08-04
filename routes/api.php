@@ -31,6 +31,7 @@ Route::get('products', [ProductController::class, 'index']);
 
 Route::group(['prefix' => 'products', 'middleware' => 'auth:api'], function () {
     Route::post('', [ProductController::class, 'store']);
+    Route::post('{id}/buy', [ProductController::class, 'buy']);
 });
 
 // Profile

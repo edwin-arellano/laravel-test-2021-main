@@ -70,9 +70,9 @@ class Product extends Model
 
     /**
      * Search products for name
-     * 
+     *
      * Uses 'like' search by name
-     * 
+     *
      * @param $name string to search
      */
     public function scopeName($query, $name)
@@ -84,11 +84,33 @@ class Product extends Model
 
     /**
      * Search products in stock
-     * 
+     *
      * only returns products with quantity greater than 0
      */
     public function scopeInStock($query)
     {
         return $query->where('quantity', '>', 0);
+    }
+
+    /**
+     * Determines if the owner of the product
+     * is the user provided
+     *
+     * @param $user_id id of the owner of the product
+     */
+    public function isOwnedByUser($user_id)
+    {
+        return $this->seller->id == $user_id;
+    }
+
+    /**
+     * Determines if there is enough of a product in
+     * stock to make a purchase
+     *
+     * @param $quantity number to compare against current stock quantity
+     */
+    public function isOutOfStock($quantity)
+    {
+        return $this->quantity < $quantity;
     }
 }
