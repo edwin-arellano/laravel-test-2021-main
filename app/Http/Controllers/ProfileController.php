@@ -22,4 +22,17 @@ class ProfileController extends Controller
             'products' => $user->products->count(),
         ]);
     }
+
+    /**
+     * Puchases
+     *
+     * Return list of transactions for the current user
+     *
+     */
+    public function purchases(Request $request)
+    {
+        return $this->showAll(
+            $request->user()->transactions->toArray()
+        );
+    }
 }
